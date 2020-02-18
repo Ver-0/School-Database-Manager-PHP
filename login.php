@@ -40,13 +40,13 @@ try {
                     $conn->close();
 
                     if ($_SESSION["perm"] == "admin") {
-                        header("Location: admin.php");
+                        header("Location: admin/admin.php");
                         exit();
                     } else if ($_SESSION["perm"] == "teacher") {
-                        header("Location: teacher.php");
+                        header("Location: teacher/teacher.php");
                         exit();
                     } else if ($_SESSION["perm"] == "student") {
-                        header("Location: student.php");
+                        header("Location: student/student.php");
                         exit();
                     }
 

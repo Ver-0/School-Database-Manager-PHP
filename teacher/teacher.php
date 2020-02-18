@@ -12,6 +12,6 @@ session_start();
 </head>
 <body>
     Teacher
-    <a href="logout.php">Logout</a>
+    <a href="../logout.php">Logout</a>
 </body>
 </html>
