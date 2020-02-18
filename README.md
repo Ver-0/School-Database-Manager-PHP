@@ -3,11 +3,16 @@
 # Database Scheme
 ![Screenshot](DB_scheme.png)
 
-Simple school database management system.
+# Simple school database management system.
 
-Features:
+# Features:
+
 -Object oriented PHP
+
 -MySQLi
+
 -Login system for students, teachers and admins
+
 -Protected from SQL Injection
+
 -Try/Catch Exceptions for SQL errors
