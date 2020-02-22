@@ -11,7 +11,7 @@ try {
     if($conn->connect_errno!=0){
         throw new Exception("No connection to SQL database");
     } else {
-        $sql = "SELECT students.Name, students.Last_Name, students.Birthday, students.Adress, students.Phone_Number FROM students,users WHERE users.id_user = '$id_user' AND users.id_user = students.id_user";
+        $sql = "SELECT students.id_student, students.id_class , students.Name, students.Last_Name, students.Birthday, students.Adress, students.Phone_Number FROM students,users WHERE users.id_user = '$id_user' AND users.id_user = students.id_user";
 
         $result = $conn->query($sql);
 
@@ -20,12 +20,43 @@ try {
         } else {
             $table = $result->fetch_assoc();
 
+            $id_class = $table['id_class'];
+            $id_student = $table['id_student'];
             $name = $table['Name'];
             $last_name = $table['Last_Name'];
             $birthday = $table['Birthday'];
             $adress = $table['Adress'];
             $phone_number = $table['Phone_Number'];
         }
+
+        $sql2 = "SELECT id_class, id_teacher, Name, Profile FROM classes WHERE id_class = '$id_class'";
+
+        $result2 = $conn->query($sql2);
+
+        if(!$result2) {
+            throw new Exception("Query error"); 
+        } else {
+            $table2 = $result2->fetch_assoc();
+
+            $id_teacher = $table2['id_teacher'];
+            $class_name = $table2['Name'];
+            $class_profile = $table2['Profile'];
+        }
+
+        $sql3 = "SELECT Name, Last_Name FROM teachers WHERE id_teacher = '$id_teacher'";
+
+        $result3 = $conn->query($sql3);
+
+        if(!$result3) {
+            throw new Exception("Query error"); 
+        } else {
+            $table3 = $result3->fetch_assoc();
+
+            $tutor_name = $table3['Name'];
+            $tutor_lastname = $table3['Last_Name'];
+        }
+
+        $conn->close();
     }
 }
 
@@ -51,19 +82,43 @@ catch(Exception $e) {
     <a href="../logout.php">Logout</a>
     </div>
     <div id="nav">
-    <a href="">About me</a><br>
-    <a href="">Degrees</a><br>
-    <a href="">Teachers</a><br>
+    <div class="button">About me</div>
+    <div class="button">Degrees</div>
+    <div class="button">Teachers</div>
     </div>
     <div id="content">
     <?php
     echo "<h1>About me:</h1>";
-    echo $name."<br>";
-    echo $last_name."<br>";
-    echo $birthday."<br>";
-    echo $adress."<br>";
-    echo $phone_number."<br>";
-    echo $id_user."<br>";
+
+    echo "<table>";
+    echo "<tr>";
+    echo "<th>Name</th>"."<td>$name "."$last_name </td>";
+    echo "</tr>";
+ 
+    echo "<tr>";
+    echo "<th>Birthday</th>"."<td>$birthday</td>";
+    echo "</tr>";
+    
+    echo "<tr>";
+    echo "<th>Adress</th>"."<td>$adress</td>";
+    echo "</tr>";
+    
+    echo "<tr>";
+    echo "<th>Phone number</th>"."<td>$phone_number</td>";
+    echo "</tr>";
+    
+    echo "<tr>";
+    echo "<th>Class</th>"."<td>$class_name</td>";
+    echo "</tr>";
+    
+    echo "<tr>";
+    echo "<th>Class profile</th>"."<td>$class_profile</td>";
+    echo "</tr>";
+
+    echo "<tr>";
+    echo "<th>Your tutor</th>"."<td>$tutor_name "."$tutor_lastname </td>";
+    echo "</tr>";
+    echo "</table>";
     ?>
     
     </div>

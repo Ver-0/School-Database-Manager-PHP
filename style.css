@@ -14,15 +14,17 @@ body {
 #logo {
     width: 100%;
     height: 100px;
-    background-color: darkturquoise;
+    background-color: #60a5d3;
+
 }
 
 #nav {
     width: 11%;
     height: 96%;
-    background-color: fuchsia;
+    background-color: rgb(126, 126, 126);
     float: left;
     padding: 2%;
+
 }
 
 #content {
@@ -31,4 +33,25 @@ body {
     background-color: rgb(233, 233, 233);
     float: left;
     padding: 2%;
+
+}
+
+.button{
+
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #bebebe;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #d4d4d4;
 }
