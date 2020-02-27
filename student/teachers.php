@@ -22,9 +22,7 @@ try {
 
             $id_class = $table['id_class'];
             $id_student = $table['id_student'];
-            $_SESSION["id_student"] = $id_student;
             $name = $table['Name'];
-            $_SESSION["user_name"] = $name;
             $last_name = $table['Last_Name'];
             $birthday = $table['Birthday'];
             $adress = $table['Adress'];
@@ -80,7 +78,7 @@ catch(Exception $e) {
 <body>
     <div id="container">
     <div id="logo">
-    <?php echo "<h1>Hello ".$_SESSION["user_name"]."</h1>" ?>
+    <?php echo "<h1>Hello ".$name."</h1>" ?>
     <a href="../logout.php">Logout</a>
     </div>
     <div id="nav">

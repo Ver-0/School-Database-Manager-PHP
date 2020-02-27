@@ -5,7 +5,7 @@ body {
 
 #container {
     width: 70%;
-    height: 400px;
+    height: 500px;
     background-color: red;
     margin-left: auto;
     margin-right: auto;
@@ -19,25 +19,38 @@ body {
 }
 
 #nav {
-    width: 11%;
-    height: 96%;
+    width: 15%;
+    height: 100%;
     background-color: rgb(126, 126, 126);
     float: left;
-    padding: 2%;
 
 }
 
 #content {
-    width: 81%;
-    height: 96%;
+    width: 83%;
+    height: 98%;
     background-color: rgb(233, 233, 233);
     float: left;
-    padding: 2%;
+    padding: 1%;
 
 }
 
 .button{
+  width: 100%;
+  border: 1px solid #bebebe;
+  color: white;
+  border: 1px solid #bebebe;
+  text-align: center;
+  padding-top: 8%;
+  padding-bottom: 8%;
+}
 
+.button:hover {
+  background-color: rgb(185, 185, 185);
+}
+
+a {
+  text-decoration: none;
 }
 
 table {
