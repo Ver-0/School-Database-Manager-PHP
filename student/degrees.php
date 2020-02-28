@@ -15,8 +15,6 @@ function degree($hos,$db_use,$db_pas,$db_nam,$id_studen,$sub) {
         } else {
             $sql = "SELECT Degree FROM degrees WHERE id_student = '$id_studen' AND id_subject='$sub'";
             $result = $conn->query($sql);
-            $result_num = $result->num_rows;
-            $degrees = array();
             while ($table = $result->fetch_assoc()) {
                 $dg = $table['Degree'];
                 echo $dg." ";
