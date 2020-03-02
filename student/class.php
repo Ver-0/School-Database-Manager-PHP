@@ -4,7 +4,8 @@ require_once "../connect.php";
 mysqli_report(MYSQLI_REPORT_STRICT);
 
 $id_user = $_SESSION["id_user"];
-
+$id_class = $_SESSION["class_id"];
+/*
 try {
     $conn = new mysqli($host,$db_user,$db_pass,$db_name);
 
@@ -29,33 +30,6 @@ try {
             $phone_number = $table['Phone_Number'];
         }
 
-        $sql2 = "SELECT id_class, id_teacher, Name, Profile FROM classes WHERE id_class = '$id_class'";
-
-        $result2 = $conn->query($sql2);
-
-        if(!$result2) {
-            throw new Exception("Query error"); 
-        } else {
-            $table2 = $result2->fetch_assoc();
-
-            $id_teacher = $table2['id_teacher'];
-            $class_name = $table2['Name'];
-            $class_profile = $table2['Profile'];
-        }
-
-        $sql3 = "SELECT Name, Last_Name FROM teachers WHERE id_teacher = '$id_teacher'";
-
-        $result3 = $conn->query($sql3);
-
-        if(!$result3) {
-            throw new Exception("Query error"); 
-        } else {
-            $table3 = $result3->fetch_assoc();
-
-            $tutor_name = $table3['Name'];
-            $tutor_lastname = $table3['Last_Name'];
-        }
-
         $conn->close();
     }
 }
@@ -64,6 +38,8 @@ catch(Exception $e) {
     echo "<span style='color:red;'>Server error</span>";
     echo "<br> Developer info: ".$e;
 }
+
+*/
 ?>
 
 <!DOCTYPE html>
@@ -78,47 +54,68 @@ catch(Exception $e) {
 <body>
     <div id="container">
     <div id="logo">
-    <?php echo "<h1>Hello ".$name."</h1>" ?>
+    <?php echo "<h1>Hello ".$_SESSION["user_name"]."</h1>" ?>
     <a href="../logout.php">Logout</a>
     </div>
     <div id="nav">
     <a href="student.php"><div class="button">About me</div></a>
     <a href="degrees.php"><div class="button">Degrees</div></a>
     <a href="teachers.php"><div class="button">Teachers</div></a>
-    <a href="class.php"><div class="button">Class</div></a>
+    <a href="class.php"><div style="background-color: rgb(185, 185, 185);" class="button">Class</div></a>
     </div>
     <div id="content">
     <?php
-    echo "<h1>About me:</h1>";
+    echo "<h2>Class: ".$_SESSION["class_n"]."</h2>";
+    echo "<h2>Profile: ".$_SESSION["class_p"]."</h2>";
+    echo "<h2>Tutor: ".$_SESSION["class_t"]."</h2>";
+    echo "<h2>Colleagues: </h2>";
+
 
     echo "<table>";
-    echo "<tr>";
-    echo "<th>Name</th>"."<td>$name "."$last_name </td>";
-    echo "</tr>";
- 
-    echo "<tr>";
-    echo "<th>Birthday</th>"."<td>$birthday</td>";
-    echo "</tr>";
+    echo "<tr><th style='width:10%;'>No.</th><th>Name</th><th>Email</th></tr>";
     
-    echo "<tr>";
-    echo "<th>Adress</th>"."<td>$adress</td>";
-    echo "</tr>";
-    
-    echo "<tr>";
-    echo "<th>Phone number</th>"."<td>$phone_number</td>";
-    echo "</tr>";
-    
-    echo "<tr>";
-    echo "<th>Class</th>"."<td>$class_name</td>";
-    echo "</tr>";
-    
-    echo "<tr>";
-    echo "<th>Class profile</th>"."<td>$class_profile</td>";
-    echo "</tr>";
+    try {
+    $conn = new mysqli($host,$db_user,$db_pass,$db_name);
 
-    echo "<tr>";
-    echo "<th>Your tutor</th>"."<td>$tutor_name "."$tutor_lastname </td>";
-    echo "</tr>";
+    if($conn->connect_errno!=0){
+        throw new Exception("No connection to SQL database");
+    } else {
+        $sql = "SELECT students.Name, students.Last_Name, users.email, users.id_user FROM students,users WHERE students.id_class = '$id_class' AND users.id_user = students.id_user ORDER BY students.Last_Name";
+
+        $result = $conn->query($sql);
+
+        if(!$result) {
+            throw new Exception("Query error"); 
+        } else {
+            $i = 0;
+            while($table = $result->fetch_assoc()) {
+                $i++;
+                echo "<tr>";
+                echo "<td>".$i."</td>";
+                echo "<td>".$table['Name']." ".$table['Last_Name'];
+
+                if($table['id_user'] == $id_user) {
+                    echo "<i style='color: grey;'> (You)</i>";
+                }
+
+
+                echo "</td>";
+                echo "<td>".$table['email']."</td>";
+                echo "</tr>";
+            }
+        }
+
+        $conn->close();
+        }
+    }
+
+    catch(Exception $e) {
+        echo "<span style='color:red;'>Server error</span>";
+        echo "<br> Developer info: ".$e;
+    }
+
+
+
     echo "</table>";
     ?>
     

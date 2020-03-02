@@ -41,8 +41,13 @@ try {
             $table2 = $result2->fetch_assoc();
 
             $id_teacher = $table2['id_teacher'];
+            $id_class = $table2['id_class'];
             $class_name = $table2['Name'];
             $class_profile = $table2['Profile'];
+
+            $_SESSION["class_n"] = $class_name;
+            $_SESSION["class_p"] = $class_profile;
+            $_SESSION["class_id"] = $id_class;
         }
 
         $sql3 = "SELECT Name, Last_Name FROM teachers WHERE id_teacher = '$id_teacher'";
@@ -56,6 +61,8 @@ try {
 
             $tutor_name = $table3['Name'];
             $tutor_lastname = $table3['Last_Name'];
+
+            $_SESSION["class_t"] = $tutor_name." ".$tutor_lastname;
         }
 
         $conn->close();
@@ -84,7 +91,7 @@ catch(Exception $e) {
     <a href="../logout.php">Logout</a>
     </div>
     <div id="nav">
-    <a href="student.php"><div class="button">About me</div></a>
+    <a href="student.php"><div style="background-color: rgb(185, 185, 185);" class="button">About me</div></a>
     <a href="degrees.php"><div class="button">Degrees</div></a>
     <a href="teachers.php"><div class="button">Teachers</div></a>
     <a href="class.php"><div class="button">Class</div></a>

@@ -2,9 +2,6 @@
 session_start();
 require_once "../connect.php";
 mysqli_report(MYSQLI_REPORT_STRICT);
-
-//$id_user = $_SESSION["id_user"];
-
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +22,7 @@ mysqli_report(MYSQLI_REPORT_STRICT);
     <div id="nav">
     <a href="student.php"><div class="button">About me</div></a>
     <a href="degrees.php"><div class="button">Degrees</div></a>
-    <a href="teachers.php"><div class="button">Teachers</div></a>
+    <a href="teachers.php"><div style="background-color: rgb(185, 185, 185);" class="button">Teachers</div></a>
     <a href="class.php"><div class="button">Class</div></a>
     </div>
     <div id="content">
@@ -61,13 +58,13 @@ mysqli_report(MYSQLI_REPORT_STRICT);
         }
 
         $conn->close();
+        }
     }
-}
 
-catch(Exception $e) {
-    echo "<span style='color:red;'>Server error</span>";
-    echo "<br> Developer info: ".$e;
-}
+    catch(Exception $e) {
+        echo "<span style='color:red;'>Server error</span>";
+        echo "<br> Developer info: ".$e;
+    }
     
     echo "</table>";
     ?>
